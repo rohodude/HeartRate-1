@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="300dp"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:hint="Age"
+        android:text="MaterialEditText"
+        android:textSize="34sp"
+        app:met_baseColor="@android:color/darker_gray"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="3"
+        app:met_primaryColor="?colorAccent"
+        app:met_singleLineEllipsis="true"
+        android:layout_gravity="center"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="300dp"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:hint="Age"
+        android:text="MaterialEditText"
+        android:textSize="34sp"
+        app:met_baseColor="@android:color/darker_gray"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="3"
+        app:met_primaryColor="?colorAccent"
+        app:met_singleLineEllipsis="true"
+        android:layout_gravity="center"/>
 </LinearLayout>

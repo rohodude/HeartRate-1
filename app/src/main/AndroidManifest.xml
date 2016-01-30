@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".HeartRate"/>
+        <activity android:name=".Settings"/>
     </application>
 
 </manifest>
