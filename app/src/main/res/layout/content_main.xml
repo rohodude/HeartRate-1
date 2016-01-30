@@ -38,20 +38,21 @@
     <ImageButton
         android:layout_width="190dp"
         android:layout_height="350dp"
-        android:id="@+id/imageView"
+        android:id="@+id/imageButton"
         android:background="@mipmap/heart"
         android:layout_alignTop="@+id/scrollView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="0dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="goToHeartRate"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/imageButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>
