@@ -6,9 +6,6 @@ import android.widget.TextView;
 
 import butterknife.ButterKnife;
 
-/**
- * Created by cosorio on 1/30/2016.
- */
 public class HeartRate extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
