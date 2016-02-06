@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToHeartRate(View view) {
-        Intent intent = new Intent(this, HeartRate.class);
+        Intent intent = new Intent(this, com.vanderbie.HeartRateMonitor.class);
         startActivity(intent);
     }
 }
