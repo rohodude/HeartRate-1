@@ -50,5 +50,13 @@
         </TextView>
     </FrameLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Capture"
+        android:id="@+id/capture"
+        android:layout_gravity="right"
+        android:onClick="capture" />
+
 
 </LinearLayout>

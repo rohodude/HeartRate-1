@@ -17,20 +17,9 @@
         app:met_maxCharacters="3"
         app:met_primaryColor="?colorAccent"
         app:met_singleLineEllipsis="true"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Fitness Level"
-        android:id="@+id/textView"
-        android:padding="10dp"/>
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner" />
+        android:id="@+id/age"
+        android:inputType="number"
+        android:layout_gravity="center"/><![CDATA[
 
     com.rengwuxian.materialedittext.MaterialEditText
         android:layout_width="300dp"
@@ -45,4 +34,31 @@
         app:met_primaryColor="?colorAccent"
         app:met_singleLineEllipsis="true"
         android:layout_gravity="center"/>
+]]>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="300dp"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:hint="Weight (in pounds)"
+        android:text=""
+        android:textSize="34sp"
+        app:met_baseColor="@android:color/darker_gray"
+        app:met_floatingLabel="highlight"
+        app:met_maxCharacters="3"
+        app:met_primaryColor="?colorAccent"
+        app:met_singleLineEllipsis="true"
+        android:id="@+id/weight"
+        android:inputType="number"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=""
+        android:id="@+id/targetHeartRate"
+        android:paddingTop="30dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
 </LinearLayout>

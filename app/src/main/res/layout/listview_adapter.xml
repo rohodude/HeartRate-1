@@ -35,4 +35,14 @@
         android:layout_marginRight="30dp"
         android:layout_marginEnd="30dp" />
 
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/smileyorfrowny"
+        android:layout_toStartOf="@+id/smileyorfrowny"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp" />
+
 </RelativeLayout>

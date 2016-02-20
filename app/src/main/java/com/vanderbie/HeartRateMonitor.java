@@ -1,14 +1,8 @@
 package com.vanderbie;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.apache.commons.collections4.queue.CircularFifoQueue;
-import org.apache.commons.lang3.ArrayUtils;
-
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.hardware.Camera;
@@ -21,18 +15,23 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
 
+import org.apache.commons.collections4.queue.CircularFifoQueue;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.util.concurrent.atomic.AtomicBoolean;
+import com.dd.processbutton.FlatButton;
+
+import exhaustedcoders.heartrate.HowYaFeeling;
 import exhaustedcoders.heartrate.R;
 
 /**
@@ -159,6 +158,7 @@ public class HeartRateMonitor extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+
             wakeLock.acquire();
             camera = Camera.open();
             startTime = System.currentTimeMillis();
@@ -431,4 +431,11 @@ public class HeartRateMonitor extends Activity {
 				.isConnectedOrConnecting();
 	}
 
+	public void capture(View view) {
+		Intent intent = new Intent(this, HowYaFeeling.class);
+		Bundle mBundle = new Bundle();
+		mBundle.putInt("BPM", bpm);
+		intent.putExtras(mBundle);
+		startActivity(intent);
+	}
 }
