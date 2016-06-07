@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewSeries;
@@ -60,6 +61,8 @@ public class HeartRateMonitor extends Activity {
 	private static int averageIndex = 0;
 	private static final int averageArraySize = 100;
 	private static final int[] averageArray = new int[averageArraySize];
+
+	private static int finalHeart  = 0;
 
 	public static enum TYPE {
 		GREEN, RED
@@ -215,16 +218,18 @@ public class HeartRateMonitor extends Activity {
 			long currentTime = System.currentTimeMillis();
 			long difference = (currentTime - startTime) / 1000;
 			Log.i("Difference", difference + "");
-			if (difference >= 10) timer.setImageResource(R.mipmap.hundred);
-			else if (difference >= 9) timer.setImageResource(R.mipmap.ninety);
-			else if (difference >= 8) timer.setImageResource(R.mipmap.hundred);
-			else if (difference >= 7) timer.setImageResource(R.mipmap.seventy);
-			else if (difference >= 6) timer.setImageResource(R.mipmap.sixty);
-			else if (difference >= 5) timer.setImageResource(R.mipmap.fifty);
-			else if (difference >= 4) timer.setImageResource(R.mipmap.forty);
-			else if (difference >= 3) timer.setImageResource(R.mipmap.thirty);
-			else if (difference >= 2) timer.setImageResource(R.mipmap.twenty);
-			else if (difference >= 1) timer.setImageResource(R.mipmap.ten);
+			if (difference >= 20) {
+				timer.setImageResource(R.mipmap.hundred);
+			}
+			else if (difference >= 19) timer.setImageResource(R.mipmap.ninety);
+			else if (difference >= 18) timer.setImageResource(R.mipmap.hundred);
+			else if (difference >= 17) timer.setImageResource(R.mipmap.seventy);
+			else if (difference >= 16) timer.setImageResource(R.mipmap.sixty);
+			else if (difference >= 15) timer.setImageResource(R.mipmap.fifty);
+			else if (difference >= 14) timer.setImageResource(R.mipmap.forty);
+			else if (difference >= 13) timer.setImageResource(R.mipmap.thirty);
+			else if (difference >= 12) timer.setImageResource(R.mipmap.twenty);
+			else if (difference >= 11) timer.setImageResource(R.mipmap.ten);
 			if (data == null)
 				throw new NullPointerException();
 			Camera.Size size = cam.getParameters().getPreviewSize();
