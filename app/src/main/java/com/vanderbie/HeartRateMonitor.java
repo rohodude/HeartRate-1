@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,6 +43,8 @@ import exhaustedcoders.heartrate.R;
  * @author Justin Wetherell <phishman3579@gmail.com>
  */
 public class HeartRateMonitor extends Activity {
+
+	long initialCount = 0;
 
 	public static final String TAG = "HeartRateMonitor";
 	private static final AtomicBoolean processing = new AtomicBoolean(false);
@@ -97,6 +100,7 @@ public class HeartRateMonitor extends Activity {
 	private boolean streamData = false;
 	public static DatagramSocket mSocket = null;
 	public static DatagramPacket mPacket = null;
+	public static ImageView timer;
 
 	/**
 	 * {@inheritDoc}
@@ -105,6 +109,7 @@ public class HeartRateMonitor extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.heartrate);
+		initialCount = System.currentTimeMillis();
 
 		preview = (SurfaceView) findViewById(R.id.preview);
 		previewHolder = preview.getHolder();
@@ -113,6 +118,7 @@ public class HeartRateMonitor extends Activity {
 
 		// image = findViewById(R.id.image);
 		text = (TextView) findViewById(R.id.text);
+		timer = (ImageView) findViewById(R.id.loading);
 
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wakeLock = pm
@@ -206,6 +212,19 @@ public class HeartRateMonitor extends Activity {
 		 */
 		@Override
 		public void onPreviewFrame(byte[] data, Camera cam) {
+			long currentTime = System.currentTimeMillis();
+			long difference = (currentTime - startTime) / 1000;
+			Log.i("Difference", difference + "");
+			if (difference >= 10) timer.setImageResource(R.mipmap.hundred);
+			else if (difference >= 9) timer.setImageResource(R.mipmap.ninety);
+			else if (difference >= 8) timer.setImageResource(R.mipmap.hundred);
+			else if (difference >= 7) timer.setImageResource(R.mipmap.seventy);
+			else if (difference >= 6) timer.setImageResource(R.mipmap.sixty);
+			else if (difference >= 5) timer.setImageResource(R.mipmap.fifty);
+			else if (difference >= 4) timer.setImageResource(R.mipmap.forty);
+			else if (difference >= 3) timer.setImageResource(R.mipmap.thirty);
+			else if (difference >= 2) timer.setImageResource(R.mipmap.twenty);
+			else if (difference >= 1) timer.setImageResource(R.mipmap.ten);
 			if (data == null)
 				throw new NullPointerException();
 			Camera.Size size = cam.getParameters().getPreviewSize();
@@ -438,4 +457,8 @@ public class HeartRateMonitor extends Activity {
 		intent.putExtras(mBundle);
 		startActivity(intent);
 	}
+
+	/*private boolean inBetweenTimes(long difference, int secStart, int secEnd) {
+		if (difference >= 1000)
+	} */
 }

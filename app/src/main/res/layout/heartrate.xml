@@ -27,7 +27,7 @@
         <SurfaceView
             android:id="@+id/preview"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
         </SurfaceView>
 
         <TextView
@@ -48,6 +48,12 @@
             android:textSize="5sp"
             android:layout_margin="5dp">
         </TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loading"
+            android:layout_gravity="center" />
     </FrameLayout>
 
     <Button
