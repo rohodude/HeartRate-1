@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="42dp"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:padding="10dp">
+
+            <RadioButton android:id="@+id/happy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onMoodClicked"
+                android:button="@mipmap/happy"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:scaleX="1"
+                android:scaleY="1"/>
+
+            <RadioButton android:id="@+id/eh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onMoodClicked"
+                android:button="@mipmap/eh"
+                android:orientation="horizontal"
+                android:scaleX="1.02"
+                android:scaleY="1.02"
+                android:layout_alignBottom="@+id/sad"
+                android:layout_centerHorizontal="true" />
+            <RadioButton android:id="@+id/sad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onMoodClicked"
+                android:button="@mipmap/sad"
+                android:orientation="horizontal"
+                android:scaleX="1.05"
+                android:scaleY="1.05"
+                android:layout_alignTop="@+id/happy"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp" />
+        </RelativeLayout>
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="352dp"
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_weight="0">
+
+
+        <RadioButton android:id="@+id/running"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:onClick="onExerciseClicked"
+            android:button="@mipmap/running_dude"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:layout_gravity="right"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="48dp"
+            android:layout_marginStart="48dp"
+            android:layout_alignTop="@+id/relaxed" />
+
+        <RadioButton android:id="@+id/relaxed"
+            android:layout_width="86dp"
+            android:layout_height="match_parent"
+            android:onClick="onExerciseClicked"
+            android:button="@mipmap/relaxing_dude"
+            android:orientation="horizontal"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+    </RadioGroup>
+
+
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="How are you feeling?"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:textSize="30dp"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp"/>
+
+    <Button
+        android:id="@+id/click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:theme="@style/MyButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="click"/>
+</RelativeLayout>

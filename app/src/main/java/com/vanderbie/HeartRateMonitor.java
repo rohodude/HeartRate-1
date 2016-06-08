@@ -34,12 +34,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.dd.processbutton.FlatButton;
 
 import exhaustedcoders.heartrate.HowYaFeeling;
+import exhaustedcoders.heartrate.MoodExercise;
 import exhaustedcoders.heartrate.R;
+import exhaustedcoders.heartrate.StoreBPM;
 
 /**
  * This class extends Activity to handle a picture preview, process the preview
  * for a red values and determine a heart beat.
- * 
+ *
  * @author Joey van der Bie <joey@vanderbie.net>
  * @author Justin Wetherell <phishman3579@gmail.com>
  */
@@ -104,6 +106,7 @@ public class HeartRateMonitor extends Activity {
 	public static DatagramSocket mSocket = null;
 	public static DatagramPacket mPacket = null;
 	public static ImageView timer;
+	private static Context context;
 
 	/**
 	 * {@inheritDoc}
@@ -112,6 +115,7 @@ public class HeartRateMonitor extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.heartrate);
+		HeartRateMonitor.context = getApplicationContext();
 		initialCount = System.currentTimeMillis();
 
 		preview = (SurfaceView) findViewById(R.id.preview);
@@ -168,20 +172,20 @@ public class HeartRateMonitor extends Activity {
 	public void onResume() {
 		super.onResume();
 
-            wakeLock.acquire();
-            camera = Camera.open();
-            startTime = System.currentTimeMillis();
+		wakeLock.acquire();
+		camera = Camera.open();
+		startTime = System.currentTimeMillis();
 
-            // File file = new File(this.getFilesDir(), "data.txt");
-            // try {
-            // out = new BufferedWriter(new FileWriter(file));
-            // } catch (IOException e) {
-            // Log.e(TAG,"unexpected Error", e);
-            // e.printStackTrace();
-            // }
+		// File file = new File(this.getFilesDir(), "data.txt");
+		// try {
+		// out = new BufferedWriter(new FileWriter(file));
+		// } catch (IOException e) {
+		// Log.e(TAG,"unexpected Error", e);
+		// e.printStackTrace();
+		// }
 
-            metronome = new Metronome(this);
-            metronome.start();
+		metronome = new Metronome(this);
+		metronome.start();
 	}
 
 	/**
@@ -194,10 +198,10 @@ public class HeartRateMonitor extends Activity {
 
 		wakeLock.release();
 
-        camera.setPreviewCallback(null);
-        camera.stopPreview();
-        camera.release();
-        camera = null;
+		camera.setPreviewCallback(null);
+		camera.stopPreview();
+		camera.release();
+		camera = null;
 		// try {
 		// out.close();
 		// } catch (IOException e) {
@@ -219,10 +223,16 @@ public class HeartRateMonitor extends Activity {
 			long difference = (currentTime - startTime) / 1000;
 			Log.i("Difference", difference + "");
 			if (difference >= 20) {
+				//StoreBPM book = new StoreBPM(bpm);
+				//book.save();
+				Intent intent = new Intent(HeartRateMonitor.context, MoodExercise.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.putExtra("BPM", bpm);
+				HeartRateMonitor.context.startActivity(intent);
 				timer.setImageResource(R.mipmap.hundred);
 			}
 			else if (difference >= 19) timer.setImageResource(R.mipmap.ninety);
-			else if (difference >= 18) timer.setImageResource(R.mipmap.hundred);
+			else if (difference >= 18) timer.setImageResource(R.mipmap.eighty);
 			else if (difference >= 17) timer.setImageResource(R.mipmap.seventy);
 			else if (difference >= 16) timer.setImageResource(R.mipmap.sixty);
 			else if (difference >= 15) timer.setImageResource(R.mipmap.fifty);
@@ -289,11 +299,11 @@ public class HeartRateMonitor extends Activity {
 			bpmQueue.add(bpm);
 
 			text.setText(String.valueOf(bpm));// + "," +
-												// String.valueOf(Math.round((float)
-												// Fs)));
-				new UDPThread()
-						.execute(bpm + ", " + System.currentTimeMillis());
-			
+			// String.valueOf(Math.round((float)
+			// Fs)));
+			new UDPThread()
+					.execute(bpm + ", " + System.currentTimeMillis());
+
 			counter++;
 			exampleSeries.appendData(new GraphView.GraphViewData(counter,
 					imgAvg), true, 1000);
@@ -406,7 +416,7 @@ public class HeartRateMonitor extends Activity {
 		 */
 		@Override
 		public void surfaceChanged(SurfaceHolder holder, int format, int width,
-				int height) {
+								   int height) {
 			Camera.Parameters parameters = camera.getParameters();
 			parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
 			Camera.Size size = getSmallestPreviewSize(width, height, parameters);
@@ -429,7 +439,7 @@ public class HeartRateMonitor extends Activity {
 	};
 
 	private static Camera.Size getSmallestPreviewSize(int width, int height,
-			Camera.Parameters parameters) {
+													  Camera.Parameters parameters) {
 		Camera.Size result = null;
 
 		for (Camera.Size size : parameters.getSupportedPreviewSizes()) {
@@ -448,7 +458,7 @@ public class HeartRateMonitor extends Activity {
 
 		return result;
 	}
-	
+
 	private boolean isOnWifi() {
 		ConnectivityManager conman = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 		return conman.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
