@@ -2,12 +2,15 @@ package exhaustedcoders.heartrate;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,7 +24,7 @@ import butterknife.ButterKnife;
  */
 public class MoodExercise extends AppCompatActivity {
     int bpm = -1;
-    String date = null;
+    String date = "";
     int moodId = -1;
     int exerciseId = -1;
     @Override
@@ -33,7 +36,7 @@ public class MoodExercise extends AppCompatActivity {
         bpm = intent.getIntExtra("BPM", 0);
         DateFormat dateFormat = new SimpleDateFormat("MM/dd");
         Date date = new Date();
-        this.date = dateFormat.format(date);
+        this.date = dateFormat.format(date).toString();
     }
 
     public void onMoodClicked(View view) {
@@ -71,7 +74,14 @@ public class MoodExercise extends AppCompatActivity {
     }
 
     public void click(View view) {
+        Log.e("TAG : -","I was clicked");
+        // Toast.makeText(this,"I was clicked",Toast.LENGTH_SHORT).show();
         StoreBPM storeBPM = new StoreBPM(bpm, date, moodId, exerciseId);
+        storeBPM.setBpm(bpm);
+        storeBPM.setDate(date);
+        storeBPM.setMoodId(moodId);
+        storeBPM.setExerciseId(exerciseId);
+        //Details details = new Details("hello");
         storeBPM.save();
     }
 }

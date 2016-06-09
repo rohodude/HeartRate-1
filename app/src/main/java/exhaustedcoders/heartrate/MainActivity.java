@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+
+import com.orm.SugarContext;
+
 import java.util.Set;
 
 import butterknife.Bind;
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SugarContext.init(getApplicationContext());
         ButterKnife.bind(MainActivity.this);
         toolbar.setTitle("Toolbar");
         toolbar.inflateMenu(R.menu.settings);
@@ -66,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToHeartRate(View view) {
-        Intent intent = new Intent(this, com.vanderbie.HeartRateMonitor.class);
-        //Intent intent = new Intent(this, MoodExercise.class);
+        //Intent intent = new Intent(this, com.vanderbie.HeartRateMonitor.class);
+        Intent intent = new Intent(this, MoodExercise.class);
         startActivity(intent);
     }
 }
