@@ -219,27 +219,6 @@ public class HeartRateMonitor extends Activity {
 		 */
 		@Override
 		public void onPreviewFrame(byte[] data, Camera cam) {
-			long currentTime = System.currentTimeMillis();
-			long difference = (currentTime - startTime) / 1000;
-			Log.i("Difference", difference + "");
-			if (difference >= 20) {
-				//StoreBPM book = new StoreBPM(bpm);
-				//book.save();
-				Intent intent = new Intent(HeartRateMonitor.context, MoodExercise.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				intent.putExtra("BPM", bpm);
-				HeartRateMonitor.context.startActivity(intent);
-				timer.setImageResource(R.mipmap.hundred);
-			}
-			else if (difference >= 19) timer.setImageResource(R.mipmap.ninety);
-			else if (difference >= 18) timer.setImageResource(R.mipmap.eighty);
-			else if (difference >= 17) timer.setImageResource(R.mipmap.seventy);
-			else if (difference >= 16) timer.setImageResource(R.mipmap.sixty);
-			else if (difference >= 15) timer.setImageResource(R.mipmap.fifty);
-			else if (difference >= 14) timer.setImageResource(R.mipmap.forty);
-			else if (difference >= 13) timer.setImageResource(R.mipmap.thirty);
-			else if (difference >= 12) timer.setImageResource(R.mipmap.twenty);
-			else if (difference >= 11) timer.setImageResource(R.mipmap.ten);
 			if (data == null)
 				throw new NullPointerException();
 			Camera.Size size = cam.getParameters().getPreviewSize();
@@ -298,7 +277,29 @@ public class HeartRateMonitor extends Activity {
 			bpm = Math.round((float) (bestI * Fs * 60 / sampleSize));
 			bpmQueue.add(bpm);
 
-			text.setText(String.valueOf(bpm));// + "," +
+			if (bpm > 50) {
+				long currentTime = System.currentTimeMillis();
+				long difference = (currentTime - startTime) / 1000;
+				Log.i("Difference", difference + "");
+				if (difference >= 26) {
+					Intent intent = new Intent(HeartRateMonitor.context, MoodExercise.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					intent.putExtra("BPM", bpm);
+					HeartRateMonitor.context.startActivity(intent);
+					timer.setImageResource(R.mipmap.hundred);
+				}
+				else if (difference >= 25) timer.setImageResource(R.mipmap.ninety);
+				else if (difference >= 24) timer.setImageResource(R.mipmap.eighty);
+				else if (difference >= 23) timer.setImageResource(R.mipmap.seventy);
+				else if (difference >= 21) timer.setImageResource(R.mipmap.sixty);
+				else if (difference >= 19) timer.setImageResource(R.mipmap.fifty);
+				else if (difference >= 17) timer.setImageResource(R.mipmap.forty);
+				else if (difference >= 15) timer.setImageResource(R.mipmap.thirty);
+				else if (difference >= 13) timer.setImageResource(R.mipmap.twenty);
+				else if (difference >= 11) timer.setImageResource(R.mipmap.ten);
+
+				text.setText(String.valueOf(bpm));// + "," +
+			}
 			// String.valueOf(Math.round((float)
 			// Fs)));
 			new UDPThread()

@@ -65,10 +65,10 @@ public class MoodExercise extends AppCompatActivity {
         // Check which radio button was clicked
         switch (view.getId()) {
             case R.id.running:
-                if (checked) exerciseId = 0;
+                if (checked) exerciseId = 3;
                 break;
             case R.id.relaxed:
-                if (checked) exerciseId = 1;
+                if (checked) exerciseId = 4;
                 break;
         }
     }

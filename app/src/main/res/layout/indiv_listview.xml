@@ -34,7 +34,7 @@
             android:layout_marginStart="39dp" />
 
         <RelativeLayout
-            android:layout_width="150dp"
+            android:layout_width="125dp"
             android:layout_height="match_parent"
             android:layout_alignTop="@+id/dateView"
             android:layout_alignParentRight="true"
@@ -52,8 +52,10 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:id="@+id/exerciseView"
+                android:padding="10dp"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_toRightOf="@+id/moodView"
+                android:layout_toEndOf="@+id/moodView" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -46,4 +46,5 @@ dependencies {
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
     compile 'com.github.satyan:sugar:1.5'
     compile 'net.soulwolf.widget:materialRadio:1.0.1'
+    compile 'com.google.android.gms:play-services-fitness:9.0.2'
 }
