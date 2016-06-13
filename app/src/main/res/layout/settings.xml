@@ -1,64 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="300dp"
-        android:padding="10dp"
+    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        android:id="@+id/spinner"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:hint="Age"
-        android:text=""
-        android:textSize="34sp"
-        app:met_baseColor="@android:color/darker_gray"
-        app:met_floatingLabel="highlight"
-        app:met_maxCharacters="3"
-        app:met_primaryColor="?colorAccent"
-        app:met_singleLineEllipsis="true"
-        android:id="@+id/age"
-        android:inputType="number"
-        android:layout_gravity="center"/><![CDATA[
+        android:hint="Choose the age closest to yours"
+        app:met_floatingLabel="normal"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-    com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="300dp"
-        android:padding="10dp"
-        android:layout_height="wrap_content"
-        android:hint="Age"
-        android:text=""
-        android:textSize="34sp"
-        app:met_baseColor="@android:color/darker_gray"
-        app:met_floatingLabel="highlight"
-        app:met_maxCharacters="3"
-        app:met_primaryColor="?colorAccent"
-        app:met_singleLineEllipsis="true"
-        android:layout_gravity="center"/>
-]]>
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_width="300dp"
-        android:padding="10dp"
-        android:layout_height="wrap_content"
-        android:hint="Weight (in pounds)"
-        android:text=""
-        android:textSize="34sp"
-        app:met_baseColor="@android:color/darker_gray"
-        app:met_floatingLabel="highlight"
-        app:met_maxCharacters="3"
-        app:met_primaryColor="?colorAccent"
-        app:met_singleLineEllipsis="true"
-        android:id="@+id/weight"
-        android:inputType="number"
-        android:layout_gravity="center"/>
-
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=""
-        android:id="@+id/targetHeartRate"
-        android:paddingTop="30dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/spinner"
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner"
+        android:layout_alignRight="@+id/spinner"
+        android:layout_alignEnd="@+id/spinner">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:id="@+id/imageView3"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/unselected_data"/>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -3,6 +3,7 @@ package exhaustedcoders.heartrate;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
@@ -36,6 +37,7 @@ import com.google.android.gms.fitness.result.DataSourcesResult;
 import com.orm.SugarContext;
 import com.vanderbie.HeartRateMonitor;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -62,14 +64,47 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         ButterKnife.bind(MainActivity.this);
         ListViewAdapter listViewAdapter = new ListViewAdapter(MainActivity.this);
         listView.setAdapter(listViewAdapter);
-        toolbar.setTitle("Toolbar");
-        toolbar.inflateMenu(R.menu.settings);
+        toolbar.setTitle("Heart Rate");
+        toolbar.inflateMenu(R.menu.menu_main);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.settings) {
+                if (item.getItemId() == R.id.action_settings) {
                     Intent intent = new Intent(MainActivity.this, Settings.class);
                     startActivity(intent);
+                }
+
+                if (item.getItemId() == R.id.send) {
+                    List<StoreBPM> books = StoreBPM.listAll(StoreBPM.class);
+                    String exercise = "", mood = "";
+                    String body = "Here is your heart rate data provided by Heart Rate.  Look below for your data. \n\n";
+                    for (StoreBPM storeBPM : books) {
+                        if (storeBPM.moodId == 0) mood = "Happy";
+                        if (storeBPM.moodId == 1) mood = "Eh";
+                        if (storeBPM.moodId == 2) mood = "Sad";
+                        if (storeBPM.exerciseId == 3) exercise = "Running";
+                        if (storeBPM.exerciseId == 4) exercise = "Relaxed";
+                        body += storeBPM.date + ":\nBPM: " + storeBPM.bpm + "\nMood: " + mood + "\nExercise: " + exercise + "\n\n";
+                    }
+                    String[] TO = {""};
+                    String[] CC = {""};
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+                    emailIntent.setData(Uri.parse("mailto:"));
+                    emailIntent.setType("text/plain");
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+                    emailIntent.putExtra(Intent.EXTRA_CC, CC);
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your heart rate data");
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+
+                    try {
+                        startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                        finish();
+                        Log.i("Finished sending email...", "");
+                    }
+                    catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 return false;
             }
@@ -105,6 +140,39 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         if (id == R.id.settings) {
             Intent intent = new Intent(this, Settings.class);
             startActivity(intent);
+        }
+
+        if (item.getItemId() == R.id.send) {
+            List<StoreBPM> books = StoreBPM.listAll(StoreBPM.class);
+            String exercise = "", mood = "";
+            String body = "Here is your heart rate data provided by Heart Rate.  Look below for your data. \n\n";
+            for (StoreBPM storeBPM : books) {
+                if (storeBPM.moodId == 0) mood = "Happy";
+                if (storeBPM.moodId == 1) mood = "Eh";
+                if (storeBPM.moodId == 2) mood = "Sad";
+                if (storeBPM.exerciseId == 3) exercise = "Running";
+                if (storeBPM.exerciseId == 4) exercise = "Relaxed";
+                body += storeBPM.date + ":\nBPM: " + storeBPM.bpm + "\nMood: " + mood + "\nExercise: " + exercise;
+            }
+            String[] TO = {""};
+            String[] CC = {""};
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+            emailIntent.setData(Uri.parse("mailto:"));
+            emailIntent.setType("text/plain");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+            emailIntent.putExtra(Intent.EXTRA_CC, CC);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your heart rate data");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+
+            try {
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                finish();
+                Log.i("Finished sending email...", "");
+            }
+            catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+            }
         }
 
         return super.onOptionsItemSelected(item);

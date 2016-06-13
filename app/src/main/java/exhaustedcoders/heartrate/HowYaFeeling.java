@@ -22,6 +22,4 @@ public class HowYaFeeling extends Activity {
         Intent intent = getIntent();
         bpm = intent.getIntExtra("BPM", 0);
     }
-
-
 }

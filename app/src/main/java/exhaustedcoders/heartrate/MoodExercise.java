@@ -83,5 +83,9 @@ public class MoodExercise extends AppCompatActivity {
         storeBPM.setExerciseId(exerciseId);
         //Details details = new Details("hello");
         storeBPM.save();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
