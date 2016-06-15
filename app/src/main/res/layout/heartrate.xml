@@ -3,7 +3,7 @@
     android:id="@+id/layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-   android:background="@android:color/white"
+    android:background="@android:color/white"
     android:orientation="vertical" >
     <LinearLayout
         android:layout_width="fill_parent"
@@ -11,7 +11,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:orientation="vertical"
         android:id="@+id/udp_panel" >
-        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/graph1"
         android:layout_width="fill_parent"
@@ -63,6 +63,5 @@
         android:id="@+id/capture"
         android:layout_gravity="right"
         android:onClick="capture" />
-
 
 </LinearLayout>

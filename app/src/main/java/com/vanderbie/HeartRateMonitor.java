@@ -61,7 +61,7 @@ public class HeartRateMonitor extends Activity {
 	private static WakeLock wakeLock = null;
 
 	private static int averageIndex = 0;
-	private static final int averageArraySize = 100;
+	private static final int averageArraySize = 200;
 	private static final int[] averageArray = new int[averageArraySize];
 
 	private static int finalHeart  = 0;
@@ -77,7 +77,7 @@ public class HeartRateMonitor extends Activity {
 	}
 
 	private static int beatsIndex = 0;
-	private static final int beatsArraySize = 14;
+	private static final int beatsArraySize = 6;
 	private static final int[] beatsArray = new int[beatsArraySize];
 	private static final long[] timesArray = new long[beatsArraySize];
 	private static double beats = 0;
@@ -288,7 +288,7 @@ public class HeartRateMonitor extends Activity {
 					HeartRateMonitor.context.startActivity(intent);
 					timer.setImageResource(R.mipmap.hundred);
 				}
-				else if (difference >= 25) timer.setImageResource(R.mipmap.ninety);
+				/*else if (difference >= 25) timer.setImageResource(R.mipmap.ninety);
 				else if (difference >= 24) timer.setImageResource(R.mipmap.eighty);
 				else if (difference >= 23) timer.setImageResource(R.mipmap.seventy);
 				else if (difference >= 21) timer.setImageResource(R.mipmap.sixty);
@@ -296,7 +296,7 @@ public class HeartRateMonitor extends Activity {
 				else if (difference >= 17) timer.setImageResource(R.mipmap.forty);
 				else if (difference >= 15) timer.setImageResource(R.mipmap.thirty);
 				else if (difference >= 13) timer.setImageResource(R.mipmap.twenty);
-				else if (difference >= 11) timer.setImageResource(R.mipmap.ten);
+				else if (difference >= 11) timer.setImageResource(R.mipmap.ten); */
 
 				text.setText(String.valueOf(bpm));// + "," +
 			}

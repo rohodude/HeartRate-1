@@ -31,6 +31,12 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:src="@drawable/unselected_data"/>
+
     </RelativeLayout>
+    pl.droidsonroids.gif.GifImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@mipmap/beating"
+        android:layout_gravity="center_horizontal" />
 
 </RelativeLayout>

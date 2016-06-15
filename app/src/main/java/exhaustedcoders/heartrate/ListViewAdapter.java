@@ -18,6 +18,7 @@ public class ListViewAdapter extends BaseAdapter {
     private static LayoutInflater inflater=null;
     Context context;
     List<StoreBPM> storeBPMs;
+
     public ListViewAdapter(MainActivity mainActivity) {
         // TODO Auto-generated constructor stub
         context=mainActivity;
