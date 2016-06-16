@@ -15,15 +15,17 @@ public class StoreBPM extends SugarRecord {
     String date;
     int moodId;
     int exerciseId;
+    String comment;
 
     public StoreBPM(){
     }
 
-    public StoreBPM (int bpm, String date, int moodId, int exerciseId){
+    public StoreBPM (int bpm, String date, int moodId, int exerciseId, String comment){
         this.bpm = bpm;
         this.date = date;
         this.moodId = moodId;
         this.exerciseId = exerciseId;
+        this.comment = comment;
     }
 
     public int getBpm() {

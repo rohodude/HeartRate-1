@@ -53,4 +53,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:21.0.+'
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.16'
+    compile 'com.wrapp.floatlabelededittext:library:0.0.6'
+    compile 'pl.coreorb:selection-dialogs:0.9.1'
 }

@@ -288,7 +288,7 @@ public class HeartRateMonitor extends Activity {
 					HeartRateMonitor.context.startActivity(intent);
 					timer.setImageResource(R.mipmap.hundred);
 				}
-				/*else if (difference >= 25) timer.setImageResource(R.mipmap.ninety);
+				else if (difference >= 25) timer.setImageResource(R.mipmap.ninety);
 				else if (difference >= 24) timer.setImageResource(R.mipmap.eighty);
 				else if (difference >= 23) timer.setImageResource(R.mipmap.seventy);
 				else if (difference >= 21) timer.setImageResource(R.mipmap.sixty);
@@ -296,7 +296,7 @@ public class HeartRateMonitor extends Activity {
 				else if (difference >= 17) timer.setImageResource(R.mipmap.forty);
 				else if (difference >= 15) timer.setImageResource(R.mipmap.thirty);
 				else if (difference >= 13) timer.setImageResource(R.mipmap.twenty);
-				else if (difference >= 11) timer.setImageResource(R.mipmap.ten); */
+				else if (difference >= 11) timer.setImageResource(R.mipmap.ten);
 
 				text.setText(String.valueOf(bpm));// + "," +
 			}
@@ -477,4 +477,9 @@ public class HeartRateMonitor extends Activity {
 	/*private boolean inBetweenTimes(long difference, int secStart, int secEnd) {
 		if (difference >= 1000)
 	} */
+
+	@Override
+	public void onStop() {
+		super.onStop();
+	}
 }

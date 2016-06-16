@@ -43,6 +43,7 @@ import com.orm.SugarContext;
 import com.vanderbie.HeartRateMonitor;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -54,8 +55,10 @@ import butterknife.ButterKnife;
 import logger.LogView;
 import logger.LogWrapper;
 import logger.MessageOnlyLogFilter;
+import pl.coreorb.selectiondialogs.data.SelectableIcon;
+import pl.coreorb.selectiondialogs.dialogs.IconSelectDialog;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IconSelectDialog.OnIconSelectedListener {
     @Bind(R.id.listView) ListView listView;
     @Bind(R.id.imageButton) ImageButton imageButton;
     @Bind(R.id.toolbar) Toolbar toolbar;
@@ -63,9 +66,17 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_OAUTH = 1;
     private static final String AUTH_PENDING = "auth_state_pending";
     private boolean authInProgress = false;
+
+    @Override
+    public void onIconSelected(SelectableIcon selectedItem) {
+
+    }
+
     private GoogleApiClient mClient = null;
 
     private static String TAG = "Tag";
+
+    private static final String TAG_SELECT_ICON_DIALOG = "TAG_SELECT_ICON_DIALOG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +89,12 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //String hello = (String) listView.getAdapter().getItem(i);
+                //Object hello = listView.getAdapter().getItem(i);
+                List<StoreBPM> storeBPMs = StoreBPM.listAll(StoreBPM.class);
+                //storeBPMs.get(i).bpm;
+                showIconSelectDialog();
+                new InsertAndVerifyDataTask((float) storeBPMs.get(i).bpm).execute();
+                Log.i("Selected ListView click", storeBPMs.get(i).bpm + "");
             }
         });
         toolbar.setTitle("Heart Rate");
@@ -218,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
         mClient = new GoogleApiClient.Builder(this)
                 .addApi(Fitness.HISTORY_API)
                 .addApi(Fitness.SENSORS_API)
+                .addScope(new Scope(Scopes.FITNESS_BODY_READ_WRITE))
                 .addScope(new Scope(Scopes.FITNESS_BODY_READ))
                 .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ))
                 .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
@@ -228,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.i(TAG, "Connected!!!");
                                 // Now you can make calls to the Fitness APIs.  What to do?
                                 // Look at some data!!
-                                new InsertAndVerifyDataTask().execute();
+                                new InsertAndVerifyDataTask((float) 0).execute();
                             }
 
                             @Override
@@ -267,10 +284,20 @@ public class MainActivity extends AppCompatActivity {
      *  An example of an asynchronous call using a callback can be found in the example
      *  on deleting data below.
      */
+    //DataSet dataSet2 = null;
     private class InsertAndVerifyDataTask extends AsyncTask<Void, Void, Void> {
+        float heartBeat = 0;
+
+        InsertAndVerifyDataTask(float heartBeat) {
+            this.heartBeat = heartBeat;
+        }
         protected Void doInBackground(Void... params) {
             // Create a new dataset and insertion request.
-            DataSet dataSet = insertFitnessData();
+
+            //if (heartBeat == 0) return null;
+
+            DataSet dataSet = insertFitnessData(heartBeat);
+            //dataSet2 = dataSet;
 
             // [START insert_dataset]
             // Then, invoke the History API to insert the data and await the result, which is
@@ -285,9 +312,11 @@ public class MainActivity extends AppCompatActivity {
             // Before querying the data, check to see if the insertion succeeded.
             if (!insertStatus.isSuccess()) {
                 Log.i(TAG, "There was a problem inserting the dataset.");
+                Log.i("dataSet", dataSet.toString());
                 return null;
             }
 
+            Log.i("dataSet", dataSet.toString());
             // At this point, the data has been inserted and can be read.
             Log.i(TAG, "Data insert was successful!");
             // [END insert_dataset]
@@ -313,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Create and return a {@link DataSet} of step count data for insertion using the History API.
      */
-    private DataSet insertFitnessData() {
+    private DataSet insertFitnessData(float heartRate) {
         Log.i(TAG, "Creating a new data insert request.");
 
         // [START build_insert_data_request]
@@ -322,26 +351,25 @@ public class MainActivity extends AppCompatActivity {
         Date now = new Date();
         cal.setTime(now);
         long endTime = cal.getTimeInMillis();
-        cal.add(Calendar.HOUR_OF_DAY, -1);
+        cal.add(Calendar.MINUTE, -1);
         long startTime = cal.getTimeInMillis();
 
         // Create a data source
         DataSource dataSource = new DataSource.Builder()
                 .setAppPackageName(this)
-                .setDataType(DataType.TYPE_STEP_COUNT_DELTA)
-                .setStreamName(TAG + " - step count")
+                .setDataType(DataType.TYPE_HEART_RATE_BPM)
+                .setStreamName(TAG + " - heart rate")
                 .setType(DataSource.TYPE_RAW)
                 .build();
 
         // Create a data set
-        int stepCountDelta = 95;
         DataSet dataSet = DataSet.create(dataSource);
         // For each data point, specify a start time, end time, and the data value -- in this case,
         // the number of new steps.
         DataPoint dataPoint = dataSet.createDataPoint()
                 .setTimeInterval(startTime, endTime, TimeUnit.MILLISECONDS);
         //dataPoint.getValue(Field.FIELD_STEPS).setInt(stepCountDelta);
-        dataPoint.getValue(Field.FIELD_STEPS).setInt(stepCountDelta);
+        dataPoint.getValue(Field.FIELD_BPM).setFloat(heartRate);
         //dataPoint.getValue(Field.FIELD_BPM).setFloat(stepCountDelta);
         dataSet.add(dataPoint);
         // [END build_insert_data_request]
@@ -592,16 +620,33 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a data set
         //int stepCountDelta = 1000;
-        int heartRateDelta = 60;
-        DataSet dataSet = DataSet.create(dataSource);
+        float heartRateDelta = 60;
+        DataSet dataSet = DataSet.create(dataSourceHR);
         // For each data point, specify a start time, end time, and the data value -- in this case,
         // the number of new steps.
         DataPoint dataPoint = dataSet.createDataPoint()
                 .setTimeInterval(startTime, endTime, TimeUnit.MILLISECONDS);
-        dataPoint.getValue(Field.FIELD_STEPS).setInt(heartRateDelta);
+        dataPoint.getValue(Field.FIELD_STEPS).setFloat(heartRateDelta);
         dataSet.add(dataPoint);
         // [END build_update_data_request]
 
         return dataSet;
+    }
+
+    private void showIconSelectDialog() {
+        new IconSelectDialog.Builder(this)
+                .setIcons(sampleIcons())
+                .setTitle("Select Action")
+                .setSortIconsByName(true)
+                .setOnIconSelectedListener(this)
+                .build().show(getSupportFragmentManager(), TAG_SELECT_ICON_DIALOG);
+    }
+
+    private static ArrayList<SelectableIcon> sampleIcons() {
+        ArrayList<SelectableIcon> selectionDialogsColors = new ArrayList<>();
+        selectionDialogsColors.add(new SelectableIcon("google", "Google Fit", R.drawable.ic_watch_black_24dp));
+        selectionDialogsColors.add(new SelectableIcon("delete", "Delete", R.drawable.ic_delete_black_24dp));
+        selectionDialogsColors.add(new SelectableIcon("comment", "View Comment", R.drawable.ic_comment_black_24dp));
+        return selectionDialogsColors;
     }
 }

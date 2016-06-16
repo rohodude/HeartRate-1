@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -23,6 +24,8 @@ import butterknife.ButterKnife;
  * Created by cidseuser on 6/8/2016.
  */
 public class MoodExercise extends AppCompatActivity {
+    @Bind(R.id.comment)
+    EditText comment;
     int bpm = -1;
     String date = "";
     int moodId = -1;
@@ -76,7 +79,7 @@ public class MoodExercise extends AppCompatActivity {
     public void click(View view) {
         Log.e("TAG : -","I was clicked");
         // Toast.makeText(this,"I was clicked",Toast.LENGTH_SHORT).show();
-        StoreBPM storeBPM = new StoreBPM(bpm, date, moodId, exerciseId);
+        StoreBPM storeBPM = new StoreBPM(bpm, date, moodId, exerciseId, comment.getText().toString());
         storeBPM.setBpm(bpm);
         storeBPM.setDate(date);
         storeBPM.setMoodId(moodId);

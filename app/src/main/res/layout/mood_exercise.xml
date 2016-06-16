@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:float="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -11,7 +13,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="42dp"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:id="@+id/radioGroup">
 
         <RelativeLayout
             android:orientation="vertical"
@@ -54,54 +57,54 @@
                 android:layout_marginEnd="10dp" />
         </RelativeLayout>
 
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="352dp"
-        android:layout_height="150dp"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp"
-        android:weightSum="1">
-
-        <RelativeLayout
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="352dp"
+            android:layout_height="150dp"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:layout_weight="0">
-
-
-        <RadioButton android:id="@+id/running"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:onClick="onExerciseClicked"
-            android:button="@mipmap/running_dude"
-            android:scaleX="1.4"
-            android:scaleY="1.4"
-            android:layout_gravity="right"
-            android:layout_alignParentBottom="true"
+            android:padding="15dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="48dp"
-            android:layout_marginStart="48dp"
-            android:layout_alignTop="@+id/relaxed" />
+            android:layout_marginTop="40dp"
+            android:weightSum="1">
 
-        <RadioButton android:id="@+id/relaxed"
-            android:layout_width="86dp"
-            android:layout_height="match_parent"
-            android:onClick="onExerciseClicked"
-            android:button="@mipmap/relaxing_dude"
-            android:orientation="horizontal"
-            android:scaleX="1.4"
-            android:scaleY="1.4"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-        </RelativeLayout>
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:layout_weight="0">
 
-    </RadioGroup>
+
+                <RadioButton android:id="@+id/running"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:onClick="onExerciseClicked"
+                    android:button="@mipmap/running_dude"
+                    android:scaleX="1.4"
+                    android:scaleY="1.4"
+                    android:layout_gravity="right"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginStart="48dp"
+                    android:layout_alignTop="@+id/relaxed" />
+
+                <RadioButton android:id="@+id/relaxed"
+                    android:layout_width="86dp"
+                    android:layout_height="match_parent"
+                    android:onClick="onExerciseClicked"
+                    android:button="@mipmap/relaxing_dude"
+                    android:orientation="horizontal"
+                    android:scaleX="1.4"
+                    android:scaleY="1.4"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+        </RadioGroup>
 
 
 
@@ -135,4 +138,24 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="click"/>
+
+    <com.wrapp.floatlabelededittext.FloatLabeledEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        float:fletPadding="10dp"
+        android:layout_below="@+id/radioGroup"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/comment"
+            android:layout_height="wrap_content"
+            android:hint="Enter a comment"
+            android:layout_below="@+id/radioGroup"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
 </RelativeLayout>
