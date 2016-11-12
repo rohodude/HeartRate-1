@@ -16,6 +16,7 @@ public class HowYaFeeling extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.howyafeeling);
+
         ButterKnife.bind(HowYaFeeling.this);
         TextView textView;
 
